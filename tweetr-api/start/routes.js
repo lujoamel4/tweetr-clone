@@ -35,6 +35,7 @@ Route.group(() => {
     .middleware(['auth:jwt'])
 
 /** Account */
+/** We add the auth middleware to make sure only authenticated users view user profiles */
 Route.group(() => {
   Route.get('/me', 'UserController.me')
   Route.put('/update_profile', 'UserController.updateProfile')
@@ -44,3 +45,21 @@ Route.group(() => {
   .prefix('account')
   .middleware(['auth:jwt'])
 
+
+
+/**Tweets */
+/**We add the auth to make sure only authenticated users can post tweets */
+Route.post('/tweet', 'TweetController.tweet').middleware(['auth:jwt'])
+/** Tweets are visible for anyone */
+Route.get('/tweets/:id', 'TweetController.show')
+/** Only authenticated user can reply a tweet*/
+Route.post('/tweets/reply/:id', 'TweetController.reply').middleware(['auth:jwt']);
+
+Route.group(() => {
+  Route.post('/create', 'FavoriteController.favorite')
+  Route.delete('/destroy/:id', 'FavoriteController.unFavorite')
+})
+  .prefix('favorites')
+  .middleware(['auth:jwt'])
+
+Route.delete('/tweets/destroy/:id', 'TweetController.destroy').middleware(['auth:jwt'])

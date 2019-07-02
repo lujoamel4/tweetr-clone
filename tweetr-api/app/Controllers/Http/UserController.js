@@ -226,6 +226,7 @@ class UserController {
             data: tweets
         })
     }
+    
 
     
 }

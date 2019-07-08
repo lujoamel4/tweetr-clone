@@ -5,10 +5,11 @@
 </template>
 
 <script>
-import Tweet from "@/components/Tweet/Tweet";
+import EventBus from '@/eventBus'
+import Tweet from '@/components/Tweet/Tweet'
 
 export default {
-  name: "Tweets",
+  name: 'Tweets',
   components: {
     Tweet
   },
@@ -21,6 +22,16 @@ export default {
       type: Object,
       required: true
     }
+  },
+  created () {
+    // listen for event fired
+    EventBus.$on('tweetAdded', this.fetchAddedTweet)
+  },
+  methods: {
+    fetchAddedTweet (tweet) {
+      //  add tweet to top of the tweets
+      this.tweets.unshift(tweet)
+    }
   }
-};
+}
 </script>

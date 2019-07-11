@@ -24,25 +24,26 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-  name: "SingleTweet",
-  data() {
+  name: 'SingleTweet',
+  data () {
     return {
-      tweet: ""
-    };
+      tweet: ''
+    }
   },
-  created() {
-    this.fetchTweet();
+  created () {
+    this.fetchTweet()
   },
   methods: {
-    fetchTweet() {
+    fetchTweet () {
       axios.get(`/tweets/${this.$route.params.id}`).then(response => {
-        this.tweet = response.data.data;
-      });
+        this.tweet = response.data.data
+      })
     },
-    back() {
-      this.$router.go(-1);
+    back () {
+      this.$router.go(-1)
     }
   }
-};
+}
 </script>

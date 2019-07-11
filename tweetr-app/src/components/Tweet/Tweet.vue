@@ -14,13 +14,23 @@
       <router-link :to="`/${tweet.user.username}/status/${tweet.id}`">
         <div class="extra text">{{ tweet.tweet }}</div>
       </router-link>
+      <TweetReactions
+        :tweet="tweet"
+        :replies="tweet.replies"
+        :favorites.sync="tweet.favorites"
+        :auth-user="authUser"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import TweetReactions from '@/components/Tweet/TweetReactions'
 export default {
   name: 'Tweet',
+  components: {
+    TweetReactions
+  },
   props: {
     tweet: {
       type: Object,
